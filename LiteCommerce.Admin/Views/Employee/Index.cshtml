@@ -1,0 +1,160 @@
+﻿@model LiteCommerce.Admin.Models.EmployeePaginationResult
+@{
+    ViewBag.Title = "Manager Employee";
+    ViewBag.SmallTitle = "List";
+    int i = 0;
+}
+
+<div class="box box-primary">
+    <div class="box-body">
+        <form action="~/Employee" method="get">
+            <div class="input-group input-group-sm">
+                <input type="text" name="searchValue" class="form-control" placeholder="@Model.SeachValue">
+               
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+        <small>Search for Last name or Email</small>
+    </div>
+</div>
+<form action="~/Employee/Delete" method="post">
+    <div class="container-fluid row lc-mb">
+        <div class="col-sm-6">
+            There are <b>@Model.RowCount</b> Suppliers. <b>Page @string.Format("{0}/{1}", @Model.Page, @Model.PageCount)</b>
+        </div>
+        <div class="col-md-6 text-right">
+            <div class="btn-group">
+                <a href="~/Employee/Input" class="btn btn-sm btn-primary">Add Employee</a>
+                <button type="button" id="delete-btn" class="btn btn-sm btn-danger"  data-toggle="modal" data-target="#modal-default">Delete Employees</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Delete ? </h4>
+                </div>
+                <div class="modal-body">
+                    <p>Do you want delete <span id="count" class="text-danger text-bold"></span> this employees ?</p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="box box-success">
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:30px">
+                            <input type="checkbox" id="selectAll" title="Select All"/>
+                        </th>
+                        <th style="width:50px">#</th>
+                        <th style="width:200px">First Name</th>
+                        <th style="width:150px">Last Name</th>
+                        <th style="width:150px">BrithDay</th>
+                        <th style="width:200px">Email</th>
+                        <th style="width:200px">Address</th>
+                        <th style="width:auto">Homephone</th>
+                        <th style="width:auto">Photo</th>
+                        <th style="width:60px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var employee in Model.Data)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="employeeIDs" value="@employee.EmployeeID"  />
+                            </td>
+                            <td>@(++i + (Model.Page-1)*Model.PageSize)</td>
+                            <td>
+                                <p>@employee.FirstName</p>
+                            </td>
+                            <td>
+                                <p>@employee.LastName</p>
+                            </td>
+
+                            <td>
+                                <p>@string.Format("{0: dd/MM/yyyy}", employee.BirthDate)</p>
+                            </td>
+                            <td>
+                                <p>@employee.Email</p>
+                            </td>
+                            <td>
+                                <p>@employee.Address - @employee.City - @employee.Country</p>
+                            </td>
+
+                            <td>
+                                <p>@employee.HomePhone</p>
+                            </td>
+                            <td>
+                                <img src="~/Images/Upload/@employee.PhotoPath" alt="avt" width="70" />
+                            </td>
+
+                            <td class="text-center">
+                                <a class="btn btn-sm btn-default" href="~/Employee/Input/@employee.EmployeeID/" title="Update this employee">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer clearfix text-center">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="~/Employee?page=1&searchValue=@Model.SeachValue">«</a></li>
+                @for (int page = 1; page <= Model.PageCount; page++)
+            {
+                if (page == Model.Page)
+                {
+                        <li class="active"><a href="#">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Employee?page=@page&searchValue=@Model.SeachValue">@page</a></li>
+                    }
+
+                }
+
+                <li><a href="~/Employee?page=@Model.PageCount&searchValue=@Model.SeachValue">»</a></li>
+            </ul>
+        </div>
+    </div>
+
+</form>
+
+
+@section scripts{
+    <script type="text/javascript">
+        document.getElementById('selectAll').onclick = function () {
+            var checkboxes = document.getElementsByName('employeeIDs');
+            for (var checkbox of checkboxes) {
+                checkbox.checked = this.checked;
+            }
+        }
+        $(document).ready(function () {
+            document.getElementById('delete-btn').onclick = function () {
+                var c = $('input[name="employeeIDs"]:checked').length;
+                document.getElementById("count").innerHTML = c;
+            }
+        })
+    </script>
+}

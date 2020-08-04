@@ -1,0 +1,51 @@
+﻿15/05/2020 - XAY DUNG PROTOTYPE - TONG QUAN VE SAN PHAM - TIEP CAN KHACH HANG |
+	| PP TIEP CAN PHAN MEM : AGILE|thac nuoc|
+	| LO TRINH XAY DUNG PHAN MEM => AP DUNG CHO NGON NGU KHAC
+	| GIAO DIEN DONG NHAT 
+	| MAU SAC => LANDING PAGE (NEN DUNG ) | OFFICAL => MAU SAC NEN DONG NHAT 
+	| QUY TAC Z : CHIEU DAO MAT CUA NGUOI DUNG : 
+
+
+14/05/2020 :
+	-chia layout
+	-design fucntion theo giao dien
+	-phan tich thiet ke he thong
+	-
+
+-Authorzation
+=> co che bao mat he thong
+1. webconfig
+2.Add attributes [Authorza]
+3. remove [AllowAnmonuos]
+-Authentication
+=> ngoi dung cho
+
+--- Form---
+-phai co thuoc tinh name
+-id - name
+	id duy nhat
+	name van co the trung => array
+-post / get
+	post : data se nam trong body form (ko show tren url)
+	get : show data tren url 
+- @Html.AntiForgeryToken() : để ngăn chặn lấy thông tin từ bên ngoài .. fake data bên ngoài
+	=> Token => tạo ra một token  nếu trùng với hệ thống thì cho phép truy cập
+	 [ValidateAntiForgeryToken] : token trong he thong
+	- bat dong thoi => thuong dung trong post
+- Task list : danh sach cac nhiem vu chua hoan thien  [todo] view => task list =>  cuc ky quan trong 
+
+-  @Html.ValidationMessage() : chuyen loi trong controller sang view 
+
+-> data from action to view : viewbag
+
+-> tao giao dien than thien voi nguoi dung UI / UX(cham soc nguoi yeu)
+
+----- sesstion ----------
+	Session.Abandon();
+	Session.Clear();
+-xoa trong he thong
+	System.Web.Security.FormsAuthentication.SignOut();
+
+	---------
+	IsAuthenticated : true | false
+	Name  : trong = 

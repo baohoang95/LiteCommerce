@@ -1,0 +1,47 @@
+﻿@model LiteCommerce.DomainModels.Country
+@{
+    ViewBag.SmallTitle = "Input";
+    
+}
+
+
+
+<div class="box box-primary">
+    <form role="form" action="~/Country/Input" method="post">
+        <div class="box-header text-right">
+            <a href="~/Country">Back to List</a>
+        </div>
+        <div class="box-body">
+            <div class="form-group">
+                <input type="hidden" name="Method" value="@ViewBag.Method">
+                <input type="hidden" name="CountryId" value="@Model.CountryId">
+                @{if (ViewBag.Method == "Update")
+                    {
+                        <label>Country Name: @Html.ValidationMessage("CountryName", new { @class = "text-danger" }) </label>
+                        <input type="text" class="form-control " name="CountryName" value="@Model.CountryName">
+                    }
+                    if (ViewBag.Method == "Add")
+                    {
+                        <label>Country Name: @Html.ValidationMessage("CountryName", new { @class = "text-danger" }) </label>
+                        <input type="text" class="form-control" name="CountryName"  placeholder="Nhập">
+                    }
+                }
+                @*<div class="col-sm-6">
+                    <label>Country Name: @Html.ValidationMessage("CountryName", new { @class = "text-danger" })</label>
+                    <input type="text" class="form-control" name="CountryName" value="@Model.CountryName" placeholder="Nhập">
+                </div>*@
+              
+            </div>
+
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="submit" class="btn btn-sm btn-primary">
+                <i class="fa fa-save"></i> Save
+            </button>
+            <a class="btn btn-sm btn-default" href="~/Country">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>

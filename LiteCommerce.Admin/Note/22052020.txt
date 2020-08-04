@@ -1,0 +1,27 @@
+﻿-----------------------22/05/2020-----------------------------
+Tính đa hình : ex giao tiếp với các csdl
+
+--@ viet nhieu dong
+---------------------Quy trinh xu ly lenh -------------------------
+=>thiet lap ket noi -> tao lenh ()    -> xu ly lenh - thuc thi  =>hien thi ket qua (dua vao hay thong qua nhieu cach xu ly )
+---------------------
+nhieu dong , cot  => dbreader
+1 dong 1 cot => scalar
+----------------------KIEN THUC CAN NHO----------------
+tham so truyen cho 1 action 2 cach : tham so tren url , (?/tenthamso/giatri => get)
+	:=> body form => post
+nho cach lam 
+-----------------------CHANGE---------------------
+->chuyen tu @model IEnumerable (la 1 danh sach  , list, array.. ,) => @model LiteCommerce.Admin.Models.SupplierPaginationResult ( là một class  chứa object)
+
+-----------------------CONVENTION-----------------
+PassCal : Project Name
+camelCase : variableName
+UpperCase :
+
+
+=>>>> Kha nang phan tich thiet ke he thong : PROTOTYPE
+
+
+bt -> Xu lý phần PaginationBar ... 
+làm hết các phần còn lại . chừa product lại 

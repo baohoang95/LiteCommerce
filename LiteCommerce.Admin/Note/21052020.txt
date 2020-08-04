@@ -1,0 +1,45 @@
+﻿--Mô hình 3 lớp--
++ Presentation Layer
++ Domain Model (RUP) : tập  hợp các biểu đồ lớp (class) => hình dung tổ chức hệ thống. 
+2 cách : DB first | Code firts( Diagram Class)
++ Data Layer :   cung cấp các chức năng  giao tiếp với DM (Domain Model) và DB
+	=>CRUD
+	3 step ( mo ket noi  => tao lenh thuc thi)
++ Bussiness Layer : <->DM , <->DL( Data Layer)
+=> trình tự để hoàn thành 1 nghiệp vụ trong sys
++DB
+
+thu muc: Libraries : chua cau truc 3 layer
+ten lop : ko s ( so nhieu)
+
+-------------------SOLID : OOP : 5 nguyen lý cơ bản :----------------
+	Single responsibility principle
+		=> 1 anh dung ôm quá nhiều việc : => Một class chỉ nên giữ 1 trách nhiệm duy nhất 
+		POCO |
+	Open/closed principle
+		=> 
+	Liskov substitution principle
+	Interface segregation principle
+	Dependency inversion principle
+=> Hiểu để vận dụng (Important to Interview)
+
+OOP: Polymorphism Tính Đa HÌnh => cài đặt dựa trên 1 mẫu có sẵn 
+	=> tạo ra các khuon mẫu => (interface) => 
+	nếu vi phạm => L => sinh ngoại lệ
+
+
+---------------------------Kiến thức cơ bản-------------------------------------
+static=> su dung chinh ten cua lop  "ClassName.Method" .... ma ko phai new Intance
+class : cac thanh phan ben trong cung phai khai bao la static
+
+IEnumerable : list , array .....
+public : ko dc dung sa de public: => ma hoa		
+---------------------------Phim tat------------------------------------
+
+	ctrl j => list ra nhung thu con thieu
+	Ctrl m o | m l ; dong mo summary
+
+----------------------Cach truyen data from controller to view -------------
+=> dung Model => chat che
+
+=>Bai tap :  khai bao DomainModel ( shipper , cus, produc....)

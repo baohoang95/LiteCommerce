@@ -1,0 +1,128 @@
+﻿@model LiteCommerce.DomainModels.Employee
+@{
+    ViewBag.SmallTitle = "Input";
+}
+
+<div class="box box-primary">
+    <form role="form" action="~/Employee/Input" method="post" enctype="multipart/form-data">
+        <div class="box-header text-right">
+            <a href="~/Employee">Back to List</a>
+        </div>
+        <div class="box-body">
+            <input type="hidden" name="EmployeeID" value="@Model.EmployeeID" />
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label>First Name: @Html.ValidationMessage("FirstName" , new { @class ="text-danger"})</label>
+                    <input type="text" class="form-control" placeholder="First Name" name="FirstName" value="@Model.FirstName">
+                </div>
+                <div class="col-sm-4">
+                    <label>Last Name: @Html.ValidationMessage("LastName", new { @class = "text-danger" })</label>
+                    <input type="text" class="form-control" placeholder="Last Name" value="@Model.LastName" name="LastName">
+                </div>
+                <div class="col-sm-4">
+                    <label>Title:</label>
+                    <input type="text" class="form-control" placeholder="Title" value="@Model.Title" name="Title">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label>Address:</label>
+                    <input type="text" class="form-control" placeholder="Enter address" value="@Model.Address"  name="Address">
+                </div>
+                <div class="col-sm-4">
+                    <label>City:</label>
+                    <input type="text" class="form-control" placeholder="City" value="@Model.City" name="City">
+                </div>
+                <div class="col-sm-4">
+                    <label>Country:</label>
+                    <select class="form-control" name="Country">
+                        @foreach (var country in SelectListHelper.Contriers())
+                        {
+                            if (Model.Country == country.Value)
+                            {
+                                <option value="@country.Value"  selected="@country.Text">@country.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@country.Value">@country.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>BrithDate: @Html.ValidationMessage("BirthDate", new { @class = "text-danger" }) </label>
+                    <input type="text" class="form-control" placeholder="Ex : 2020/08/08" value="@Model.BirthDate" name="BirthDate">
+                </div>
+                <div class="col-sm-6">
+                    <label>Hire Date: @Html.ValidationMessage("HireDate", new { @class = "text-danger" })</label>
+                    <input type="text" class="form-control" placeholder="Ex : 2020/08/08" value="@Model.HireDate" name="HireDate">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Email:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <input type="email" class="form-control" name="Email" value="@Model.Email">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label>Phone:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <input type="text" class="form-control" value="@Model.HomePhone" name="HomePhone">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Photo Path:</label>
+                  @Html.HiddenFor(m=>m.PhotoPath)
+                    <input type="file" class="form-control" placeholder="Photo Path" name="uploadFile"  accept="image/png , image/jpeg  ,image/jpg" >
+                </div>
+
+
+                <div class="col-sm-6">
+                    <label>Role:</label>
+                    <select class="form-control" name="Country">
+                        @foreach (var country in SelectListHelper.Roles())
+                        {
+                            if (Model.Roles == country.Value)
+                            {
+                                <option value="@country.Value" selected="@country.Text">@country.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@country.Value">@country.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Notes:</label>
+                <textarea class="form-control" placeholder="Enter your notes" name="Notes" >@Model.Notes</textarea>
+            </div>
+            <input  type="hidden" name="Password" value="@Model.Password"/>
+            <div>@Html.ValidationMessage("")</div>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="submit" class="btn btn-sm btn-primary">
+                <i class="fa fa-save"></i> Save
+            </button>
+            <a class="btn btn-sm btn-default" href="~/Supplier">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+

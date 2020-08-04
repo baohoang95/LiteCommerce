@@ -1,0 +1,100 @@
+﻿@model LiteCommerce.DomainModels.Order
+@{
+    ViewBag.Title = "Update order";
+    ViewBag.SmallTitle = "Edit Order #" +Model.OrderID ;
+}
+
+<div class="box box-primary">
+    <form role="form" action="~/Order/Input" method="post">
+        <div class="box-header text-right">
+            <a href="~/Order">Back to List</a>
+        </div>
+
+        <div class="box-body">
+            <input type="hidden" name="OrderID" value="@Model.OrderID" />
+            <input type="hidden" value="@ViewBag.PageCurrent" name="pageCurrent" />
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Required Date:@Html.ValidationMessage("RequiredDate" ,new { @class="text-danger"})</label>
+                    <input type="text" class="form-control" name="RequiredDate" value="@Model.RequiredDate">
+                </div>
+                <div class="col-sm-6">
+                    <label>Shipped Date:@Html.ValidationMessage("ShippedDate", new { @class = "text-danger" })</label>
+                    <input type="text" class="form-control" name="ShippedDate" value="@Model.ShippedDate">
+                </div>
+               </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Shipper:@Html.ValidationMessage("ShipperID", new { @class = "text-danger" })</label>
+                    <input type="text" class="form-control" name="ShipperID" value="@Model.ShipperID" placeholder="Contact Name">
+                </div>
+                <div class="col-sm-6">
+                    <label>Freight:@Html.ValidationMessage("Freight", new { @class = "text-danger" })</label>
+                    <input type="number" step="any" class="form-control" name="Freight" value="@Model.Freight" placeholder="Ex: Sale Manager">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label>Ship Address:@Html.ValidationMessage("ShipAddress", new { @class = "text-danger" }) </label>
+                    <input type="text" class="form-control" name="ShipAddress" value="@Model.ShipAddress" placeholder="Address">
+                </div>
+                <div class="col-sm-4">
+                    <label>Ship City:@Html.ValidationMessage("ShipCity", new { @class = "text-danger" })</label>
+                    <input type="text" class="form-control" name="ShipCity" value="@Model.ShipCity" placeholder="Address">
+                </div>
+                <div class="col-sm-4">
+                    <label>Ship Country:@Html.ValidationMessage("ShipCountry", new { @class = "text-danger" }) </label>
+                    <select class="form-control" name="ShipCountry">
+                        @foreach (var c in SelectListHelper.Contriers())
+                        {
+                            if (Model.ShipCountry == c.Value)
+                            {
+                                <option value="@c.Value" selected="@c.Text">@c.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@c.Value">@c.Text</option>
+                            }
+                        }
+                    </select>
+
+                </div>
+               
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Employee:@Html.ValidationMessage("EmployeeID", new { @class = "text-danger" })</label>
+                    <input type="text" class="form-control" placeholder="Ex: New Orleans" name="EmployeeID" value="@Model.EmployeeID">
+
+                </div>
+                <div class="col-sm-6">
+                    <label>Status</label>
+                    <select class="form-control" name="Status">
+                        @foreach (var c in SelectListHelper.Status())
+                        {
+                            if (Model.Status == c.Value)
+                            {
+                                <option value="@c.Value" selected="@c.Text">@c.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@c.Value">@c.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="submit" class="btn btn-sm btn-primary">
+                <i class="fa fa-save"></i> Save
+            </button>
+            <a class="btn btn-sm btn-default" href="~/Order">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>

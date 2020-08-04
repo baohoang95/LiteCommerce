@@ -1,0 +1,113 @@
+﻿@model LiteCommerce.DomainModels.Product
+
+@{
+    ViewBag.SmallTitle = "Input";
+}
+
+<div class="box box-primary">
+    <form role="form" action="~/Product/Input" method="post" enctype="multipart/form-data">
+        <div class="box-header text-right">
+            <a href="~/Product">Back to List</a>
+        </div>
+        <div class="box-body">
+            <div class="form-group row">
+                <input type="hidden" name="ProductID" value="@Model.ProductID"/>
+                <div class="col-sm-6">
+                    <label>Company Name: @Html.ValidationMessage("SupplierID", new {@class="text-danger" })</label>
+                    <select class="form-control" name="SupplierID">
+                        @foreach (var supplier in SelectListHelper.Suppliers())
+                        {
+                            if(Model.SupplierID.ToString() == supplier.Value)
+                            {
+                                 <option value="@supplier.Value" selected="@supplier.Text">@supplier.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@supplier.Value">@supplier.Text</option>
+                            }
+
+                        }
+                    </select>
+
+                </div>
+                <div class="col-sm-6">
+                    <label>Category Name:@Html.ValidationMessage("CategoryID", new { @class = "text-danger" })</label>
+                    <select class="form-control" name="CategoryID">
+                        @foreach (var category in SelectListHelper.Categories())
+                        {
+                            if (Model.CategoryID.ToString() == category.Value)
+                            {
+                                <option value="@category.Value" selected="@category.Text">@category.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@category.Value">@category.Text</option>
+                            }
+
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 ">
+                    <label>Product Name:@Html.ValidationMessage("ProductName", new { @class = "text-danger" }) </label>
+                    <input type="text" class="form-control" name="ProductName" value="@Model.ProductName" placeholder="Enter Product Name">
+                </div>
+
+                <div class="col-sm-6 ">
+                    <label>Attribute Name: </label>
+                    <select class="form-control">
+                        @foreach (var att in SelectListHelper.Attributes())
+                        {
+                            <option value="@att.Value">@att.Text</option>
+                        }
+
+                    </select>
+                </div>
+
+             </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Quantity Per Unit:@Html.ValidationMessage("QuantityPerUnit", new { @class = "text-danger" })</label>
+                    <input type="text" class="form-control" name="QuantityPerUnit" value="@Model.QuantityPerUnit" placeholder="Quantity Pre Unit">
+                </div>
+                <div class="col-sm-6">
+                    <label>Unit Price:@Html.ValidationMessage("UnitPrice", new { @class = "text-danger" })</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-money"></i>
+                        </div>
+                        <input type="number" step="0.01" class="form-control" name="UnitPrice" value="@Model.UnitPrice" placeholder="EX: USD">
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Decription:</label>
+                <textarea class="form-control" name="Descriptions" placeholder="Decriptions">@Model.Descriptions</textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Photo path:</label>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-photo"></i>
+                    </div>
+                    @*<input type="hidden" name="PhotoPath" value="@Model.PhotoPath" />*@
+                    @Html.HiddenFor(m=>m.PhotoPath)
+                    <input type="file" class="form-control" name="uploadFile" accept="image/png , image/jpeg  ,image/jpg">
+                </div>
+            </div>
+      
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="submit" class="btn btn-sm btn-primary">
+                <i class="fa fa-save"></i> Save
+            </button>
+            <a class="btn btn-sm btn-default" href="~/Product">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>

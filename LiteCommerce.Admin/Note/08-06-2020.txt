@@ -1,0 +1,2 @@
+﻿public virtual List<ProductAttribute> Attribute {get;set;}
+=> Tìm hiểu về virtual và cơ chế lazi loading

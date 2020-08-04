@@ -1,0 +1,147 @@
+﻿@model LiteCommerce.Admin.Models.ShipperPaginationResult
+@{
+    ViewBag.Title = "Catalog";
+    ViewBag.SmallTitle = "Shippers";
+    int i = 0;
+}
+
+<div class="box box-primary">
+    <div class="box-body">
+        <form action="~/Shipper" method="get">
+            <div class="input-group input-group-sm">
+                <input type="text" name="searchValue" class="form-control" placeholder="@Model.SeachValue">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<form action="~/Shipper/Delete" method="post">
+
+    <div class="container-fluid row lc-mb">
+        <div class="col-sm-8">
+            There are <b>@Model.RowCount</b> Shippers. <b>Page @string.Format("{0}/{1}", @Model.Page, @Model.PageCount)</b>
+        </div>
+        <div class="col-md-4 text-right">
+            <div class="btn-group">
+                <a href="~/Shipper/Input" class="btn btn-sm btn-primary">Add Shipper</a>
+                <button type="button" id="delete-btn"  class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-default">Delete Shippers</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Delete ? </h4>
+                </div>
+                <div class="modal-body">
+                    <p>Do you want delete <span id="count"></span> this shippers ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="box box-warning">
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:30px">
+                            <input type="checkbox" id="selectAll" title="Select All" />
+                        </th>
+                        <th style="width:50px">#</th>
+                        <th style="width:auto">CompanyName</th>
+
+                        <th style="width:200px">Phone </th>
+                        <th style="width:120px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var shipper in Model.Data)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="shipperIDs" value="@shipper.ShipperID" />
+                            </td>
+                            <td>@(++i + (Model.Page - 1) * Model.PageSize)</td>
+                            <td>
+                                <span class="lc-company-name">
+                                    @shipper.CompanyName
+                                </span>
+
+                            </td>
+
+                            <td>
+                                <p><i class="fa fa-phone"></i> @shipper.Phone</p>
+
+                            </td>
+                            <td class="text-center btn-group">
+                                <a class="btn btn-sm btn-default" href="~/Shipper/Input/@shipper.ShipperID/" title="Edit this Shipper">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="btn btn-sm btn-default" href="#" title="List Shippers Orders">
+                                    <i class="fa fa-first-order"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer clearfix text-center">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="~/Shipper?page=1&searchValue=@Model.SeachValue">«</a></li>
+                @for (int page = 1; page <= Model.PageCount; page++)
+            {
+                if (page == Model.Page)
+                {
+                        <li class="active"><a href="#">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Shipper?page=@page&searchValue=@Model.SeachValue">@page</a></li>
+                    }
+
+                }
+
+                <li><a href="~/Shipper?page=@Model.PageCount&searchValue=@Model.SeachValue">»</a></li>
+            </ul>
+        </div>
+    </div>
+</form>
+
+@section scripts{
+    <script type="text/javascript">
+        document.getElementById('selectAll').onclick = function () {
+            var checkboxes = document.getElementsByName('shipperIDs');
+           
+            for (var checkbox of checkboxes) {
+                checkbox.checked = this.checked;
+            }
+        }
+    </script>
+    <script>
+            $(document).ready(function () {
+                document.getElementById('delete-btn').onclick = function () {
+                    var c = $('input[name="shipperIDs"]:checked').length;
+                    document.getElementById("count").innerHTML = c;
+                }
+            })
+
+    </script>
+}

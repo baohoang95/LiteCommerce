@@ -1,0 +1,141 @@
+﻿@model LiteCommerce.Admin.Models.CategoryPaginationResutl
+@{
+    ViewBag.Title = "Catalog";
+    ViewBag.SmallTitle = "Categories";
+    int i = 0;
+}
+
+<div class="box box-primary">
+    <div class="box-body">
+        <form action="~/Categori" method="get">
+            <div class="input-group input-group-sm">
+                <input type="text" name="searchValue" class="form-control" placeholder="@Model.SeachValue">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<form  action="~/Categori/Delete" method="post">
+    <div class="container-fluid row lc-mb">
+        <div class="col-sm-8">
+            There are <b>@Model.RowCount</b> Categories. <b>Page @string.Format("{0}/{1}", @Model.Page, @Model.PageCount)</b>
+        </div>
+        <div class="col-md-4 text-right">
+            <div class="btn-group">
+                <a href="~/Categori/Input" class="btn btn-sm btn-primary">Add Category</a>
+                <button type="button" id="delete-btn" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-default">Delete Categories</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title ">Delete <i class="fa fa-fw fa-question-circle "></i> </h4>
+                </div>
+                <div class="modal-body">
+                    <p>Do you want delete <span id="count"></span> this categories ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="box box-success">
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:30px">
+                            <input type="checkbox" id="selectAll" />
+                        </th>
+                        <th style="width:50px">#</th>
+                        <th style="width:500px">Category Name</th>
+                        <th style="width:auto">Descriptions</th>
+                        <th style="width:80px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var category in Model.Data)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="categoryIDs" value="@category.CategoryID" />
+                            </td>
+                            <td>@(++i)</td>
+                            <td>
+                                <span class="lc-category-name">
+                                    @category.CategoryName
+                                </span>
+
+                            </td>
+
+                            <td>
+                                <p>@category.Description </p>
+
+                            </td>
+                            <td class="text-right">
+                                <a class="btn btn-sm btn-default" href="~/Categori/Input/@category.CategoryID/">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer clearfix text-center">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="~/Categori?page=1&searchValue=@Model.SeachValue">«</a></li>
+                @for (int page = 1; page <= Model.PageCount; page++)
+            {
+                if (page == Model.Page)
+                {
+                        <li class="active"><a href="#">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Categori?page=@page&searchValue=@Model.SeachValue">@page</a></li>
+                    }
+
+                }
+
+                <li><a href="~/Categori?page=@Model.PageCount&searchValue=@Model.SeachValue">»</a></li>
+            </ul>
+        </div>
+    </div>
+
+</form>
+
+@section scripts {
+    <script>
+        document.getElementById('selectAll').onclick = function () {
+            var checkboxes = document.getElementsByName('categoryIDs');
+            for (var checkbox of checkboxes) {
+                checkbox.checked = this.checked;
+            }
+        }
+
+        $(document).ready(function () {
+            document.getElementById('delete-btn').onclick = function () {
+                var c = $('input[name="categoryIDs"]:checked').length;
+                document.getElementById("count").innerHTML = c;
+            }
+        })
+    </script>
+  
+}

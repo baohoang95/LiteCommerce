@@ -1,0 +1,16 @@
+﻿--------------TO CHUC VA LUU TRU PHAN QUYEN NGUOI DUNG-----------------
+
+-cookies  : ten trong webconfig da ma hoa => server se dua vao do de biet user da dang nhap chua
+
+=>lưu trong phần hearders , request 
+
+-1 Phieen dawng nhap: 
+	lua nhieu thong tin 
+	Phan quyen user => chuyen mon hoa quyen
+
+-thuat ngu : Authentication : xac thuc user, pass, token, qr code,... => ve vao cong
+			Authorization : sau khi vao cong => phan quyen nguoi dung
+- co che da hinh : van dung linh hoat
+
+
+			

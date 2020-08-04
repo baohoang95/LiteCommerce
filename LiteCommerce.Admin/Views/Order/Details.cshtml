@@ -1,0 +1,174 @@
+﻿@model LiteCommerce.Admin.Models.OrderDetailPaginationResutl
+@{
+    ViewBag.Title = "Order Details";
+    ViewBag.SmallTitle = "Invoice #" + ViewBag.OrderID;
+    decimal subTotal = 0;
+    decimal total =0;
+    decimal frieght = ViewBag.Freight;
+}
+
+  <!-- Content Wrapper. Contains page content -->
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="box-header text-right">
+            <a href="~/Order">Back to List</a>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="invoice">
+        <!-- title row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="page-header">
+                    <i class="fa fa-globe"></i> @ViewBag.SupplierName.
+                    <small class="pull-right">Date: @string.Format("{0: dd/MM/yyyy}",ViewBag.OrderDate)</small>
+                </h2>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- info row -->
+        <div class="row invoice-info">
+            <div class="col-sm-4 invoice-col">
+                From
+                <address>
+                    <strong>@ViewBag.SupplierName.</strong><br>
+                    @ViewBag.AddressSupp<br>
+                    @ViewBag.CitySupp , @ViewBag.CountrySupp<br>
+                    Phone: @ViewBag.PhoneSupp<br>
+                </address>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                To
+                <address>
+                    <strong>@ViewBag.CustomerName</strong><br>
+                    @ViewBag.AddressCus<br>
+                    @ViewBag.CityCus, @ViewBag.CountryCus<br>
+                    Phone: @ViewBag.PhoneCus<br>
+                </address>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                <b>Invoice #@ViewBag.OrderID</b><br>
+                <br>
+                <b>Order ID:</b> @ViewBag.OrderID<br>
+                <b>Payment Due:</b>@string.Format("{0: dd/MM/yyyy}", ViewBag.OrderDate)<br>
+                <b>Status: </b>@ViewBag.Status<br>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <!-- Table row -->
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Quantity</th>
+                            <th>Product Name</th>
+                            <th>Product ID</th>
+                            <th>Unit Price</th>
+                            @*<th>Discount</th>
+                            <th>Frieght</th>*@
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       @foreach (var p in Model.Data)
+                       {
+                        <tr>
+                            <td>@p.Quantity</td>
+                            <td>@p.ProductName</td>
+                            <td>@p.ProductID</td>
+                            <td>@p.UnitPrice</td>
+                            @*<td>@p.Discount</td>
+                            <td>@p.Freight</td>*@
+                            <td>$@p.SubTotal</td>
+                        </tr>
+
+                           subTotal+= @p.SubTotal;
+                       }
+                        
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <!-- accepted payments column -->
+            <div class="col-xs-6">
+                <p class="lead">Payment Methods:</p>
+                <img src="~/Themes/AdminLTE/dist/img/credit/visa.png" alt="Visa">
+                <img src="~/Themes/AdminLTE/dist/img/credit/mastercard.png" alt="Mastercard">
+                <img src="~/Themes/AdminLTE/dist/img/credit/american-express.png" alt="American Express">
+                <img src="~/Themes/AdminLTE/dist/img/credit/paypal2.png" alt="Paypal">
+                <img  class="img-bordered-sm"  src="~/Themes/AdminLTE/dist/img/credit/hand (1).png" alt="Cash">
+
+                <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg
+                    dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+                </p>
+            </div>
+            <!-- /.col -->
+            <div class="col-xs-6">
+                <p class="lead">Amount Due @ViewBag.OrderDate</p>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th style="width:50%">Subtotal:</th>
+                             <td>$@subTotal</td>
+                        </tr>
+                        <tr>
+                            <th>Shipping:</th>
+                            <td>$@ViewBag.Freight</td>
+                        </tr>
+
+                        @{
+                            total = subTotal + frieght;
+                        }
+                        <tr>
+                            <th>Total:</th>
+                            <td>$ @total </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <!-- this row will not appear when printing -->
+        <div class="row no-print">
+            <div class="col-xs-12">
+                <button id="print" class="btn btn-default"><i class="fa fa-print"></i> Print</button>
+                <button type="button" class="btn btn-success pull-right">
+                    <i class="fa fa-credit-card"></i> Submit Payment
+                </button>
+                <button type="button" id="pdf" class="btn btn-primary pull-right" style="margin-right: 5px;">
+                    <i class="fa fa-download"></i> Generate PDF
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+    <div class="clearfix"></div>
+
+<!-- /.content-wrapper -->
+
+
+@section scripts{
+    <script type="text/javascript">
+        document.getElementById('print').onclick = function () {
+            window.print();
+        }
+        document.getElementById('pdf').onclick = function () {
+            window.print();
+        }
+
+
+    </script>
+}

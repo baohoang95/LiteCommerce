@@ -1,0 +1,34 @@
+﻿------------------28/05/2020----------------------
+//TODO :Pagination
+
++ thư viện : SQLClient
+	OlerDB: ex. acsset
+	=> Đa hình : kết nối với nhiều CSDL
+	Connection
+	Command
+	Excute
+
+	-----Command ----
+	upDate/Delete : ko có dl trả về, so dong tac dong :  EXnonquery
+	Count : 1 1 : EXscalar
+	Add / View : SQLDataReader
+
+	 SELECT @@IDENTITY;: lay ra gia tri vua sinh ra (ID) : 1-1
+
+	 delete:
+		
+
+		-- xac thuc dl--
+		=>Summay () : tong hop
+		=>ModelState(key) : chi tieets
+
+Kiếm soát lỗi SQL => Profiler => 
+
+-- hiển thị định dạng ngày 
+	@string.Format("{o:dd/mm/yyyy}",Model.BirthDate)
+	datePicker =>
+--
+employee
+	change pass
+	pass random
+web: tutorialsteacher

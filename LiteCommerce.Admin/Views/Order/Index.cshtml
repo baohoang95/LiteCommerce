@@ -1,0 +1,319 @@
+﻿@model LiteCommerce.Admin.Models.OrderPaginationResult
+@{
+    ViewBag.Title = "Manager Orders";
+    ViewBag.SmallTitle = "List invoice";
+    int i = 0;
+}
+
+
+<div class="box box-primary">
+    <div class="box-body">
+        <form action="~/Order" method="get">
+            <label>Search for OrderID</label>
+            <div class="input-group input-group-sm">
+                <input type="text" name="searchValue" class="form-control" placeholder="@Model.SeachValue">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<form action="~/Order/Delete" method="post">
+    <div class="container-fluid row lc-mb">
+        <div class="col-sm-8">
+            There are <b>@Model.RowCount</b> Orders. <b>Page @string.Format("{0}/{1}", @Model.Page, @Model.PageCount)</b>
+        </div>
+        <div class="col-md-4 text-right">
+            <div class="btn-group">
+                <button type="button" id="delete-btn" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-default">Delete Orders</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Delete ? </h4>
+                </div>
+                <div class="modal-body">
+                    <p>Do you want delete <span id="count" class="text-danger text-bold"></span> this orders ?</p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="box box-success">
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:30px">
+                            <input type="checkbox" id="selectAll" title="Select all " />
+                        </th>
+                        <th style="width:50px">#</th>
+                        <th style="width:100px">OrderID</th>
+                        <th style="width:100px">Order Date</th>
+                        <th style="width:100px">Requied Date</th>
+                        <th style="width:100px">Shipped Date</th>
+                        <th style="width:300px">Address Ship</th>
+                        <th style="width:40px" class="text-center">Status</th>
+                        <th style="width:80px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model.Data)
+                    {
+                        if (@order.OrderID == @Model.IdUpdated)
+                        {
+                            <tr class="active">
+                                <td>
+                                    <input type="checkbox" name="orderIDs" value="@order.OrderID" />
+                                </td>
+                                <td>@(++i + (Model.Page - 1) * Model.PageSize)</td>
+                                <td>
+                                    <p>#@order.OrderID</p>
+                                </td>
+                                <td>
+                                    <p>@string.Format("{0: dd/MM/yyyy}", order.OrderDate) </p>
+                                </td>
+                                <td>
+                                    <p>@string.Format("{0: dd/MM/yyyy}", order.RequiredDate) </p>
+                                </td>
+                                <td>
+                                    <p>@string.Format("{0: dd/MM/yyyy}", order.ShippedDate) </p>
+                                </td>
+                                <td>
+                                    <p>@order.ShipAddress</p>
+                                </td>
+                                <td class="text-center">
+                                    @{
+                                        if (@order.Status == "Shipped")
+                                        {
+                                            <label class="label label-success">@order.Status</label>
+                                        }
+                                        else if (@order.Status == "Pending")
+                                        {
+                                            <label class="label label-warning">@order.Status</label>
+                                        }
+                                        else if (@order.Status == "Processing")
+                                        {
+                                            <label class="label label-info">@order.Status</label>
+                                        }
+                                        else
+                                        {
+                                            @*<input class="btn btn-danger btn-xs" name="status" value="@order.Status" />*@
+                                            <label class="label label-danger">@order.Status</label>
+                                        }
+
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    <a class="btn btn-sm btn-default" href="~/Order/Input/?id=@order.OrderID&status=@order.Status&pageCurrent=@Model.Page" title="Edit this Order">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-info" href="~/Order/Details/@order.OrderID" title="View details order">
+                                        <i class="fa fa-info"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                               }
+
+                                else
+                                {
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" name="orderIDs" value="@order.OrderID" />
+                                        </td>
+                                        <td>@(++i + (Model.Page - 1) * Model.PageSize)</td>
+                                        <td>
+                                            <p>#@order.OrderID</p>
+                                        </td>
+                                        <td>
+                                            <p>@string.Format("{0: dd/MM/yyyy}", order.OrderDate) </p>
+                                        </td>
+                                        <td>
+                                            <p>@string.Format("{0: dd/MM/yyyy}", order.RequiredDate) </p>
+                                        </td>
+                                        <td>
+                                            <p>@string.Format("{0: dd/MM/yyyy}", order.ShippedDate) </p>
+                                        </td>
+                                        <td>
+                                            <p>@order.ShipAddress</p>
+                                        </td>
+                                        <td class="text-center">
+                                            @{
+                                                if (@order.Status == "Shipped")
+                                                {
+                                                    <label class="label label-success">@order.Status</label>
+                                                }
+                                                else if (@order.Status == "Pending")
+                                                {
+                                                    <label class="label label-warning">@order.Status</label>
+                                                }
+                                                else if (@order.Status == "Processing")
+                                                {
+                                                    <label class="label label-info">@order.Status</label>
+                                                }
+                                                else
+                                                {
+                                                    @*<input class="btn btn-danger btn-xs" name="status" value="@order.Status" />*@
+                                                    <label class="label label-danger">@order.Status</label>
+                                                }
+
+                                            }
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="btn btn-sm btn-default" href="~/Order/Input/?id=@order.OrderID&status=@order.Status&pageCurrent=@Model.Page" title="Edit this Order">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a class="btn btn-sm btn-info" href="~/Order/Details/@order.OrderID" title="View details order">
+                                                <i class="fa fa-info"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                              }
+
+                       }
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="box-footer clearfix text-center">
+            <ul class="pagination pagination-sm no-margin pull-right">
+             
+                <li><a href="~/Order?page=1&searchValue=@Model.SeachValue">«</a></li>
+                @if (Model.PageCount > 4)
+                {
+
+                    if (Model.Page < 4)
+                    {
+                        for (int page = 1; page <= 5; page++)
+                        {
+
+                            if (page == Model.Page)
+                            {
+                                <li class="active"><a href="#">@page</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="~/Order?page=@page&searchValue=@Model.SeachValue">@page</a></li>
+                            }
+
+                        }
+                        <li><a style="cursor: not-allowed;" >...</a></li>
+                    }
+
+                    else if (Model.Page < 6)
+                    {
+                        for (int page = 1; page <= Model.Page + 2; page++)
+                        {
+
+                            if (page == Model.Page)
+                            {
+                                <li class="active"><a href="#">@page</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="~/Order?page=@page&searchValue=@Model.SeachValue">@page</a></li>
+                            }
+
+                        }
+
+                        <li><a style="cursor: not-allowed;">...</a></li>
+                    }
+                    else if (Model.Page <= Model.PageCount - 4)
+                    {
+                        <li><a href="~/Order?page=1&searchValue=@Model.SeachValue">1</a></li>
+                        <li><a style="cursor: not-allowed;">...</a></li>
+                        for (int page = Model.Page - 2; page <= Model.Page + 2; page++)
+                        {
+
+                            if (page == Model.Page)
+                            {
+                                <li class="active"><a href="#">@page</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="~/Order?page=@page&searchValue=@Model.SeachValue">@page</a></li>
+                            }
+
+                        }
+                        <li><a style="cursor: not-allowed;">...</a></li>
+                    }
+                    else if (Model.Page >= Model.PageCount - 3)
+                    {
+                        <li><a href="~/Order?page=1&searchValue=@Model.SeachValue">1</a></li>
+                        <li ><a  style="cursor: not-allowed;">...</a></li>
+                        for (int page = Model.Page - 2; page <= Model.PageCount - 1; page++)
+                        {
+
+                            if (page == Model.Page)
+                            {
+                                <li class="active"><a href="#">@page</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="~/Order?page=@page&searchValue=@Model.SeachValue">@page</a></li>
+                            }
+
+                        }
+
+
+                    }
+
+                    <li><a href="~/Order?page=@Model.PageCount&searchValue=@Model.SeachValue">@Model.PageCount</a></li>
+                }
+                else
+                {
+                    for (int page = 1; page <= Model.PageCount; page++)
+                    {
+
+                        if (page == Model.Page)
+                        {
+                            <li class="active"><a href="#">@page</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="~/Order?page=@page&searchValue=@Model.SeachValue">@page</a></li>
+                        }
+
+                    }
+                }
+                <li><a href="~/Order?page=@Model.PageCount&searchValue=@Model.SeachValue">»</a></li>
+            </ul>
+        </div>
+    </div>
+</form>
+@section scripts{
+    <script type="text/javascript">
+        document.getElementById('selectAll').onclick = function () {
+                    var checkboxes = document.getElementsByName('orderIDs');
+                    for (var checkbox of checkboxes)
+                    {
+                        checkbox.checked = this.checked;
+
+                    }
+        }
+        $(document).ready(function () {
+            document.getElementById('delete-btn').onclick = function () {
+                var c = $('input[name="orderIDs"]:checked').length;
+                document.getElementById("count").innerHTML = c;
+            }
+        })
+</script>
+}
+

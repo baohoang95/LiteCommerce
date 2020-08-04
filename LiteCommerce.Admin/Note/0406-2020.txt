@@ -1,0 +1,36 @@
+﻿upload anh
+post 
+public ar input (){
+// neu bi trung
+string folder = server.mappath("img/upload");
+string filename = ...;
+string filePath = path.combine(folder,fileName);
+uploadFile.SaveAs(filePath);
+
+
+// luu vao DB 
+=> tu sinh ten file tranh viec ghi de (overwrite)
+model.photoPath = fileName
+CataLogBLL.Add...(model);
+
+
+}
+
+
+
+
+view 
+form encrpitype = "multu/form-data"
+input type ="file" 
+
+return 3 | view , content, json
+
+co the dung view @html.aspNetCOntrol 
+
+-- ke thua httpPostFileBase => truyen tham so kieu model
+
+ => Muốn cập nhật data mà ko thay đổi ảnh thì dùng 
+  @Html.HiddenFor(m=>m.PhotoPath)
+
+
+  => ...for => dung voi model (arrowFunction)

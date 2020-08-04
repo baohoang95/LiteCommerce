@@ -1,0 +1,239 @@
+﻿@model LiteCommerce.DomainModels.Employee
+@{
+    ViewBag.SmallTitle = "View Profile";
+    ViewBag.Title = "Account";
+}
+
+
+<div class="box box-info">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapperr">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Employee Profile
+            </h1>
+
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <div class="row">
+                <div class="col-md-3">
+
+                    <!-- Profile Image -->
+                    <div class="box box-primary">
+                        <div>
+                            <div class="box-body box-profile">
+                                <img class="profile-user-img img-responsive img-circle" src="~/Images/Upload/@Model.PhotoPath" width="100" alt="User profile picture">
+
+                                <h3 class="profile-username text-center">@Model.FirstName @Model.LastName</h3>
+
+                                <p class="text-muted text-center">@Model.Title</p>
+
+                                <form action="~/Employee/Input" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="EmployeeID" value="@Model.EmployeeID" />
+                                    <label for="file" id="filelable" class="btn btn-block btn-info">Change Avartar</label>
+                                    <input type="file" id="file" style="display:none" name="uploadFile" accept="image/png , image/jpeg  ,image/jpg">
+                                    <input type="submit" id="save" class="btn btn-block btn-success mt-1" style="display:none" value="Save" />
+                                    <input type="hidden" name="detail" value="detail" />
+                                    @Html.HiddenFor(m => m.FirstName)
+                                    @Html.HiddenFor(m => m.LastName)
+                                    @Html.HiddenFor(m => m.Title)
+                                    @Html.HiddenFor(m => m.Address)
+                                    @Html.HiddenFor(m => m.City)
+                                    @Html.HiddenFor(m => m.Country)
+                                    @Html.HiddenFor(m => m.BirthDate)
+                                    @Html.HiddenFor(m => m.HireDate)
+                                    @Html.HiddenFor(m => m.PhotoPath)
+                                    @Html.HiddenFor(m => m.HomePhone)
+                                    @Html.HiddenFor(m => m.Email)
+                                    @Html.HiddenFor(m => m.Password)
+                                </form>
+
+
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                    <!-- About Me Box -->
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Basic Information </h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <strong><i class="fa fa-envelope margin-r-5"></i> Email</strong>
+
+                            <p class="text-muted">
+                                @Model.Email
+                            </p>
+
+                            <hr>
+
+                            <strong><i class="fa fa-map-marker margin-r-5"></i> Address</strong>
+
+                            <p class="text-muted">@Model.Address, @Model.City, @Model.Country</p>
+
+                            <hr>
+
+                            <strong><i class="fa fa-phone margin-r-5"></i> Phone</strong>
+
+                            <p>@Model.HomePhone</p>
+
+                            <hr>
+
+                            <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+
+                            <p>@Model.Notes</p>
+                            <hr />
+                            <strong><i class="fa fa-phone margin-r-5"></i> BirthDate</strong>
+
+                            <p>@string.Format("{0: dd/MM/yyyy}", Model.BirthDate)</p>
+
+                            <hr>
+                            <strong><i class="fa fa-phone margin-r-5"></i> HireDate</strong>
+
+                            <p> @string.Format("{0: dd/MM/yyyy}", Model.HireDate)</p>
+
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#settings" data-toggle="tab">Settings</a></li>
+                        </ul>
+                        <div class="tab-content">
+
+                            <div class="active tab-pane" id="settings">
+                                <form class="form-horizontal" action="~/Employee/Input" method="post">
+                                    <input type="hidden" name="updateProfile" value="updateProfile" />
+                                    @Html.HiddenFor(m=>m.EmployeeID)
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">First Name @Html.ValidationMessage("FirstName", new { @class = "text-danger" })</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="FirstName" required value="@Model.FirstName"  placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Last Name</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="LastName" required value="@Model.LastName"  placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Title</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="Title" required value="@Model.Title"  placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Address</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="inputName" required name="Address" value="@Model.Address" placeholder="Name">
+                                        </div>
+                                        <label for="inputName" class="col-sm-2 control-label">City</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="inputName" required name="City" value="@Model.City" placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-sm-2 control-label">Country</label>
+
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="Country" required>
+                                                @foreach (var country in SelectListHelper.Contriers())
+                                                {
+                                                    if (Model.Country == country.Value)
+                                                    {
+                                                        <option value="@country.Value" selected="@country.Text">@country.Text</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@country.Value">@country.Text</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Birthdate</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="inputName" required name="BirthDate" value="@Model.BirthDate" placeholder="Name">
+                                        </div>
+                                        <label for="inputName" class="col-sm-2 control-label">HireDate</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="inputName" required name="HireDate" value="@Model.HireDate" placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" name="Email" required value="@Model.Email" id="inputEmail" placeholder="Email">
+                                        </div>
+                                    </div>
+                      
+                                    <div class="form-group">
+                                        <label for="inputExperience" class="col-sm-2 control-label">Notes</label>
+
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" id="inputExperience" name="Notes">@Model.Notes</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputSkills" class="col-sm-2 control-label">Phone</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="tel" class="form-control" id="inputSkills" required name="HomePhone" value="@Model.HomePhone" placeholder="Skills">
+                                        </div>
+                                    </div>
+                                    @Html.HiddenFor(m => m.PhotoPath)
+                                    @Html.HiddenFor(m => m.Password)
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button type="submit" class="btn btn-danger">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.tab-pane -->
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+                    <!-- /.nav-tabs-custom -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        document.getElementById('filelable').onclick = function () {
+            document.getElementById('save').style.display = "block";
+        }
+    </script>
+}

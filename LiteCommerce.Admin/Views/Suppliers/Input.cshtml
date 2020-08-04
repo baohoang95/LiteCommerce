@@ -1,0 +1,96 @@
+﻿@model LiteCommerce.DomainModels.Supplier
+
+@{
+  
+    ViewBag.SmallTitle = "Input";
+}
+<div class="box box-primary">
+    <form role="form" action="~/Suppliers/Input" method="post">
+        <div class="box-header text-right">
+            <a href="~/Suppliers">Back to List</a>
+        </div>
+       
+        <div class="box-body">
+            <input  type="hidden" name="SupplierID" value="@Model.SupplierID"/>
+            <div class="form-group">
+                <label>Company Name: @Html.ValidationMessage("CompanyName" ,new { @class="text-danger"}) </label>
+                <input type="text" class="form-control" name="CompanyName" value="@Model.CompanyName" placeholder="Enter Company Name">
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Contact Name: @Html.ValidationMessage("ContactTitle", new { @class = "text-danger" })</label>
+                    <input type="text" class="form-control" name="ContactName" value="@Model.ContactName" placeholder="Contact Name">
+                </div>
+                <div class="col-sm-6">
+                    <label>Contact Title: @Html.ValidationMessage("ContactName", new { @class = "text-danger" })</label> 
+                    <input type="text" class="form-control" name="ContactTitle" value="@Model.ContactTitle" placeholder="Ex: Sale Manager">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Address:</label>
+                <input type="text" class="form-control" name="Address" value="@Model.Address" placeholder="Address">
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Country:</label>
+                    <select class="form-control" name="Country">
+                     @foreach(var country in SelectListHelper.Contriers())
+                     {
+                         if(Model.Country == country.Value)
+                         {
+                             <option value="@country.Value" selected="@country.Text">@country.Text</option>
+                         }
+                         else
+                         {
+                            <option value="@country.Value">@country.Text</option>
+                         }
+                     }
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label>City:</label>
+                    <input type="text" class="form-control" placeholder="Ex: New Orleans" name="City" value="@Model.City">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Phone:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <input type="text" class="form-control" name="Phone" value="@Model.Phone">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label>Fax:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-fax"></i>
+                        </div>
+                        <input type="text" class="form-control" name="Fax" value="@Model.Fax">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Home page:</label>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-link"></i>
+                    </div>
+                    <input type="text" class="form-control" placeholder="ex: http://company.com" name="HomePage" value="@Model.HomePage">
+                </div>
+            </div>
+          
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="submit" class="btn btn-sm btn-primary">
+                <i class="fa fa-save"></i> Save
+            </button>
+            <a class="btn btn-sm btn-default" href="~/Supplier">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>

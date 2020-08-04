@@ -1,0 +1,7 @@
+﻿Product
+ tim kiem / xem theo  cate,supp,key
+
+ y/c :
+ 1  them dropdown conutries
+ 2 su dung dl nay cho cac dd co lien quan den quốc gia
+ 3 bố sung thêm bảng Attributes(AN) Lưu ds các tên
