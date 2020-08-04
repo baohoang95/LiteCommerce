@@ -41,7 +41,7 @@ namespace LiteCommerce.BusinessLayers
         /// <returns></returns>
         public static UserAccount Authorize (string userName , string password , UserAccountTypes userType)
         {
-            //IUserAccountDAL userAccountDB;
+            //IUserAccountDAL userAccountDB; khai báo nội tuyến đúng với tính chất đa hình hơn
             switch (userType)
             {
                 case UserAccountTypes.Employee:
